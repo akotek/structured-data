@@ -6,7 +6,7 @@
     (Math/pow z z)))
 
 (defn spiff [v]
-  (if(>= (count v) 3)
+  (if (>= (count v) 3)
     (+ (first v) (get v 2))
     nil))
 
@@ -14,7 +14,7 @@
   (conj v "<3"))
 
 (defn spiff-destructuring [v]
-  (if(>= (count v) 3)
+  (if (>= (count v) 3)
     (let [[x _ z] v] (+ x z))
     nil))
 
@@ -26,7 +26,7 @@
 
 (defn width [rectangle]
   (let [[[x1 _] [x2 _]] rectangle]
-  (- x2 x1)))
+    (- x2 x1)))
 
 (defn height [rectangle]
   (let [[[_ y1] [_ y2]] rectangle]
@@ -36,7 +36,7 @@
   (== (height rectangle) (width rectangle)))
 
 (defn area [rectangle]
-    (* (width rectangle) (height rectangle)))
+  (* (width rectangle) (height rectangle)))
 
 (defn contains-point? [rectangle point]
   (let [[[x1 y1] [x2 y2]] rectangle
@@ -85,7 +85,7 @@
     (conj a-set elem)))
 
 (defn contains-duplicates? [a-seq]
-  (not (== (count a-seq) (count (set a-seq))) ))
+  (not (== (count a-seq) (count (set a-seq)))))
 
 (defn old-book->new-book [book]
   (assoc book :authors (set (:authors book))))
@@ -98,12 +98,12 @@
   (apply clojure.set/union (map :authors books)))
 
 (defn all-author-names [books]
-  (set (map :name  (authors books))))
+  (set (map :name (authors books))))
 
 (defn author->string [author]
   (let [live-years (fn [author]
-            (if (:birth-year author)
-              (str " (" (:birth-year author) " - " (:death-year author) ")")))]
+                     (if (:birth-year author)
+                       (str " (" (:birth-year author) " - " (:death-year author) ")")))]
     (str (:name author) (live-years author))))
 
 (defn authors->string [authors]
@@ -115,13 +115,13 @@
        (authors->string (:authors book))))
 
 (defn books->string [books]
-        (cond
-        (== 0 (count books)) "No books."
-        (== 1 (count books)) (str "1 book. " (book->string (first books)) ".")
-        :else
-        (let [num_books (str (count books) " books. "),
-              book_names (apply str (interpose ". " (map book->string books)))]
-          (str num_books book_names "."))))
+  (cond
+    (== 0 (count books)) "No books."
+    (== 1 (count books)) (str "1 book. " (book->string (first books)) ".")
+    :else
+    (let [num_books (str (count books) " books. "),
+          book_names (apply str (interpose ". " (map book->string books)))]
+      (str num_books book_names "."))))
 
 (defn books-by-author [author books]
   (filter (fn [book] (has-author? book author)) books))
